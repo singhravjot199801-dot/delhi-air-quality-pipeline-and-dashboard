@@ -1,0 +1,35 @@
+image: python:3.12-slim
+
+stages:
+  - test
+  - ingest
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+
+before_script:
+  - python -m pip install --upgrade pip
+  - python -m pip install -r requirements-ci.txt
+
+# Runs on every push and before each scheduled load
+test:
+  stage: test
+  script:
+    - python -m pytest
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+
+# Runs only from the pipeline schedule. DATABASE_URL comes from CI/CD variables.
+# Fetching 7 days each run means a missed day heals itself, and the upsert
+# prevents duplicates.
+ingest:
+  stage: ingest
+  script:
+    - python load.py --past-days 7
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
