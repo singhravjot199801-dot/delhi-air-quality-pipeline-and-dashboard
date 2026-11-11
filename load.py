@@ -11,6 +11,7 @@ Run from the project folder with the virtual environment active:
     python load.py
     python load.py --past-days 30
 """
+
 import argparse
 import logging
 import os
@@ -20,6 +21,7 @@ from dotenv import load_dotenv
 from psycopg2.extras import execute_values
 
 from ingest import build_dataset
+from quality import run_checks
 
 TABLE = "delhi_air_weather"
 
@@ -97,6 +99,15 @@ def main() -> None:
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
     df = build_dataset(past_days=args.past_days)
+
+    errors, warnings = run_checks(df)
+    for message in warnings:
+        log.warning("Quality warning: %s", message)
+    if errors:
+        for message in errors:
+            log.error("Quality check failed: %s", message)
+        raise SystemExit("Aborting load: data quality checks failed")
+
     load(df)
 
 
