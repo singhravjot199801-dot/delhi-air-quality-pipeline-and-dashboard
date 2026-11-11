@@ -3,3 +3,5 @@ pandas
 duckdb
 jupyterlab
 matplotlib
+psycopg2-binary
+python-dotenv
