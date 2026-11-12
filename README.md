@@ -105,14 +105,20 @@ requirements-ci.txt    slim dependencies used in CI
 
 ## Challenges and what I learned
 
-*Fill this in with your own experience. Ideas:*
+- **Library compatibility:** My system Python was too new for pandas and DuckDB, which failed to install. I built the project in a Python 3.12 virtual environment instead, and pinned dependencies in `requirements.txt`.
 
-- [A data quirk you found in the APIs and how you handled it]
-- [A design decision, such as why the load is an idempotent upsert]
-- [A deployment problem you solved]
+- **Data validation paid off:** When I tried to backfill 90 days, my quality checks blocked the load because 30% of the weather rows were empty. I traced the gap to the oldest ~27 days of the request and loaded 60 days instead, so bad data never reached the database.
+
+- **Idempotent loads:** The load upserts on the timestamp inside one transaction, so re-running it, or re-fetching overlapping days in the daily job, never creates duplicates.
+
+- **Keeping secrets out of Git:** Windows saved my credentials file as `.env.txt`, which my `.gitignore` didn't cover. I caught it with `git status` before committing, renamed it and ignored it, and stored the database URL as a CI/CD variable for the scheduled job.
+
+- **Separating environments:** My notebook was running on a different Python than my project environment, so libraries "weren't installed". Checking `sys.executable` and launching Jupyter from the project environment fixed it.
 
 ## Roadmap
 
-- SQL analysis models on top of the stored data
-- Interactive dashboard
-- Next-day AQI forecast with evaluation against a baseline
+- Next-day AQI forecast, evaluated against a simple baseline.
+- Public deployment of the dashboard with a read-only database user.
+- Use Open-Meteo's historical weather endpoint to backfill longer history.
+- Alerting when a scheduled run fails.
+
