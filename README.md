@@ -95,11 +95,13 @@ requirements-ci.txt    slim dependencies used in CI
 
 ## Findings
 
-*Fill this in once the analysis is done.*
+- PM2.5 follows a daily cycle, lowest around 13:00 to 14:00 (about 53 µg/m³) and highest around 22:00 to 23:00 (about 95 µg/m³), roughly 80% higher at night than at midday.
 
-- [Key pattern 1, for example how PM2.5 differs by season, with a number]
-- [Key pattern 2, for example the relationship between wind speed and PM2.5]
-- [Forecast result, for example model error compared with a simple baseline]
+- PM2.5 falls as wind speed rises: about 86 µg/m³ in calm conditions (under 5 km/h), 72 at 5 to 10 km/h and 52 at 10 to 20 km/h, roughly 39% lower than in calm air. No hours in the data exceeded 20 km/h.
+
+- PM2.5 shows moderate negative correlations with temperature (-0.40) and wind speed (-0.34) and almost none with humidity (0.11), so weather alone explains only part of the variation.
+
+*Based on hourly data from mid-September to mid-November 2026 (post-monsoon season). These are associations, not proof of cause.*
 
 ## Challenges and what I learned
 
