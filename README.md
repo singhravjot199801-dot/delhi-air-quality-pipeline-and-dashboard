@@ -17,6 +17,20 @@ flowchart LR
     G[GitLab CI/CD daily schedule] --> C
 ```
 
+
+## Dashboard
+
+An interactive Streamlit dashboard reads the stored data from Postgres.
+
+![Daily PM2.5 trend](docs/images/Delhi_Air_quality_Line_chart.png)
+
+![PM2.5 by hour of day and wind speed](docs/images/Delhi_Air_quality_Column_chart.png)
+
+![PM2.5 versus wind speed](docs/images/Delhi_Air_quality_Scatter_PLot.png)
+
+Run it locally with `python -m streamlit run dashboard.py`.
+
+
 ## What the pipeline does
 
 1. **Ingest** (`ingest.py`): pulls hourly PM2.5, PM10, US AQI, temperature, humidity and wind speed from two Open-Meteo APIs, with automatic retries on temporary server errors. Timestamps are in Asia/Kolkata local time.
