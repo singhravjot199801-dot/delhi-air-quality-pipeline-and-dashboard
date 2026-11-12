@@ -4,6 +4,8 @@ An automated data pipeline that collects hourly air quality and weather data for
 
 **Question this project answers:** How do Delhi's PM2.5 levels vary by season, time of day and weather, and can tomorrow's AQI be forecast?
 
+**Live dashboard:** https://delhi-air-quality-pipeline-and-dashboard.streamlit.app
+
 ## Architecture
 
 ```mermaid
