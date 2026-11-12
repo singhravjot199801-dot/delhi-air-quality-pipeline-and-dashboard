@@ -41,7 +41,7 @@ Run it locally with `python -m streamlit run dashboard.py`.
 
 ## Tech stack
 
-Python 3.12, pandas, requests, PostgreSQL (Neon), psycopg2, pytest, GitLab CI/CD.
+Python 3.12, pandas, requests, PostgreSQL (Neon), psycopg2, pytest, GitLab CI/CD, Streamlit.
 
 ## Data sources
 
@@ -85,9 +85,11 @@ python load.py --past-days 30   # load a longer history
 ingest.py              fetch, clean and merge the two sources
 quality.py             data quality checks
 load.py                idempotent Postgres load
+dashboard.py           Streamlit dashboard reading from Postgres
 tests/                 pytest tests for the quality checks
+analysis/              SQL queries for exploratory analysis
 notebooks/             exploratory analysis of the raw data
-docs/data-notes.md     notes on the sources, units and quirks I found
+docs/                  data notes, analysis notes and dashboard screenshots
 .gitlab-ci.yml         CI pipeline: tests on push, daily scheduled load
 requirements.txt       full local dependencies
 requirements-ci.txt    slim dependencies used in CI
