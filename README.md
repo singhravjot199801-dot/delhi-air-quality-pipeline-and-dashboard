@@ -1,5 +1,6 @@
 # Delhi Air Quality Pipeline and Dashboard
 Main Project is on GitLab https://gitlab.com/singhravjot199801/delhi-air-quality-pipeline-and-dashboard
+
 An automated data pipeline that collects hourly air quality and weather data for Delhi, validates it, and stores it in Postgres every day. On top of the stored data I built a SQL analysis, a live dashboard, and a 24-hour PM2.5 forecasting experiment.
 
 **Live dashboard:** https://delhi-air-quality-pipeline-and-dashboard.streamlit.app
